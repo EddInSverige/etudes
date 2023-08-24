@@ -126,18 +126,29 @@ def solve_cyber_security_problem():
     def brute_force_solution():
         from itertools import combinations_with_replacement
 
-        seven_letter_words = []
-        with open("./words.txt") as f:
-            for word in f:
-                if len(word) == 7:
-                    seven_letter_words.append(word.lower().split())
+        try:
+            seven_letter_words = []
+
+            with open('./words.txt') as f:
+                for word in f:
+                    # Strip /n
+                    word = word.strip()    
+
+                    # We only want strings
+                    if word.isalpha():
+                        if len(word) == 7:
+                            seven_letter_words.append(word.lower())
+
+        except FileNotFoundError:
+            print("Dictionary not found!")
         
-        combinations = list(combinations_with_replacement(["a", "d", "e", "n", "s", "w"], 7))
+        # All 7 letter combinations including repeated characters as strings
+        combinations = [''.join(x) for x in list(combinations_with_replacement(["a", "d", "e", "n", "s", "w"], 7))]
 
         possible_solutions = []
-        
+
         for combination in combinations:
-            if ''.join(combination) in seven_letter_words:
+            if word in seven_letter_words:
                 possible_solutions.append(combination)
 
         return possible_solutions
@@ -147,4 +158,4 @@ def solve_cyber_security_problem():
 
 print(solve_coding_problem())       # Answer is Carpentry
 print(solve_engineering_problem())  # Answer is Picky
-# solve_cyber_security_problem()
+solve_cyber_security_problem()      # Answer is ...
