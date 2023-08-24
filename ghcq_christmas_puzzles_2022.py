@@ -2,25 +2,25 @@
 
 
 def solve_coding_problem():
-    # Import three letter words from file
+    # Import three and nine letter words from dictionary
     try:
         three_letter_words = []
-        with open('./three_letter_words.txt') as f:
-            for word in f:
-                three_letter_words.append(word.strip())
-
-    except FileNotFoundError:
-        print("Three Letter Words list not found!")
-
-    # Import nine letter words from file
-    try:
         nine_letter_words = []
-        with open('./nine_letter_words.txt') as f:
+
+        with open('./words.txt') as f:
             for word in f:
-                nine_letter_words.append(word.strip())
-    
+                # Strip /n
+                word = word.strip()    
+
+                 # We only want strings
+                if word.isalpha():
+                    if len(word) == 3:
+                        three_letter_words.append(word.lower())
+                    elif len(word) == 9:
+                        nine_letter_words.append(word.lower())
+
     except FileNotFoundError:
-        print("Three Letter Words list not found!")
+        print("Dictionary not found!")
 
     # Set possible letters for each cell color
     blue_cells = ["p", "a", "r", "t"]
@@ -64,7 +64,7 @@ def solve_coding_problem():
                 if potential_word in nine_letter_words:
                     valid_nine_letter_words.append(potential_word)
 
-    print(valid_nine_letter_words)
+    return valid_nine_letter_words[0]
 
 
 def solve_engineering_problem():
@@ -115,7 +115,7 @@ def solve_engineering_problem():
     letter_5 = head(rotate_n_times_clockwise(cog_5, 20))
 
     # And print the result!
-    print(letter_1 + letter_2 + letter_3 + letter_4 + letter_5)
+    return letter_1 + letter_2 + letter_3 + letter_4 + letter_5
 
 def solve_cyber_security_problem():
     # This is a directed graph / shortest path problem *but* we know the 
@@ -145,6 +145,6 @@ def solve_cyber_security_problem():
     print(brute_force_solution())
 
 
-solve_coding_problem()          # Answer is Carpentry
-solve_engineering_problem()     # Answer is Picky
-solve_cyber_security_problem()  
+print(solve_coding_problem())       # Answer is Carpentry
+print(solve_engineering_problem())  # Answer is Picky
+# solve_cyber_security_problem()
