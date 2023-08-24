@@ -1,7 +1,7 @@
 # Solutions to https://www.gchq.gov.uk/files/The%20GCHQ%20Christmas%20Challenge%202022.pdf
 
 
-def solve_word_problem():
+def solve_coding_problem():
     # Import three letter words from file
     try:
         three_letter_words = []
@@ -53,10 +53,6 @@ def solve_word_problem():
                 potential_word = letter_1 + letter_2 + letter_3
                 if potential_word in three_letter_words:
                     valid_words_row_three.append(potential_word)
-                
-    print(valid_words_row_one)
-    print(valid_words_row_two)
-    print(valid_words_row_three)
 
     # Find valid nine letter words from the previous valid words
     valid_nine_letter_words = []
@@ -121,5 +117,34 @@ def solve_engineering_problem():
     # And print the result!
     print(letter_1 + letter_2 + letter_3 + letter_4 + letter_5)
 
-solve_word_problem()        # Answer is Carpentry
-solve_engineering_problem() # Answer is Picky
+def solve_cyber_security_problem():
+    # This is a directed graph / shortest path problem *but* we know the 
+    # letters and the length of the solution and that the answer is a word
+    # 
+    # ...
+    # RAMMING SPEED!
+    def brute_force_solution():
+        from itertools import combinations_with_replacement
+
+        seven_letter_words = []
+        with open("./words.txt") as f:
+            for word in f:
+                if len(word) == 7:
+                    seven_letter_words.append(word.lower().split())
+        
+        combinations = list(combinations_with_replacement(["a", "d", "e", "n", "s", "w"], 7))
+
+        possible_solutions = []
+        
+        for combination in combinations:
+            if ''.join(combination) in seven_letter_words:
+                possible_solutions.append(combination)
+
+        return possible_solutions
+
+    print(brute_force_solution())
+
+
+solve_coding_problem()          # Answer is Carpentry
+solve_engineering_problem()     # Answer is Picky
+solve_cyber_security_problem()  
