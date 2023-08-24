@@ -1,5 +1,7 @@
+# Solutions to https://www.gchq.gov.uk/files/The%20GCHQ%20Christmas%20Challenge%202022.pdf
+
+
 def solve_word_problem():
-    
     # Import three letter words from file
     try:
         three_letter_words = []
@@ -68,4 +70,56 @@ def solve_word_problem():
 
     print(valid_nine_letter_words)
 
-solve_word_problem() # Answer is Carpentry
+
+def solve_engineering_problem():
+    # Our cogs in the problem
+    cog_1 = ["r", "m", "n", "o", "p", "q"]
+    cog_2 = ["e", "f", "g", "h", "i", "j", "k", "l"]
+    cog_3 = ["j", "b", "c", "d", "e", "f", "g", "h", "i"]
+    cog_4 = ["k", "l", "m", "n", "o"]
+    cog_5 = ["x", "y", "z", "t", "u", "v", "w"]
+
+    # Get the required cog (really just the head of our array)
+    def head(cog):
+        return cog[0]
+    
+    assert(head(["a", "b", "c"]) == "a")
+
+    # Functions for rotating the cog, or really our array
+    def rotate_cog_clockwise(cog):
+        return cog[-1:] + cog[:-1]
+
+    def rotate_cog_anticlockwise(cog):
+        return cog[1:] + cog[:1]
+    
+    assert(rotate_cog_clockwise(["a", "b", "c"]) == ["c", "a", "b"])
+    assert(rotate_cog_anticlockwise(["a", "b", "c"]) == ["b", "c", "a"])
+
+    # We need to rotate multiple times 
+    def rotate_n_times_clockwise(cog, n):
+        if n == 0:
+            return cog
+        
+        return rotate_n_times_clockwise(rotate_cog_clockwise(cog), n - 1)
+
+    def rotate_n_times_anticlockwise(cog, n):
+        if n == 0:
+            return cog
+        
+        return rotate_n_times_anticlockwise(rotate_cog_anticlockwise(cog), n - 1)
+
+    assert(rotate_cog_clockwise(rotate_cog_clockwise(["a", "b", "c"])) == rotate_n_times_clockwise(["a", "b", "c"], 2))
+    assert(rotate_cog_anticlockwise(rotate_cog_anticlockwise(["a", "b", "c"])) == rotate_n_times_anticlockwise(["a", "b", "c"], 2))
+
+    # Rotate 20 times as per the problem
+    letter_1 = head(rotate_n_times_clockwise(cog_1, 20))
+    letter_2 = head(rotate_n_times_anticlockwise(cog_2, 20))
+    letter_3 = head(rotate_n_times_anticlockwise(cog_3, 20))
+    letter_4 = head(rotate_n_times_clockwise(cog_4, 20))
+    letter_5 = head(rotate_n_times_clockwise(cog_5, 20))
+
+    # And print the result!
+    print(letter_1 + letter_2 + letter_3 + letter_4 + letter_5)
+
+solve_word_problem()        # Answer is Carpentry
+solve_engineering_problem() # Answer is Picky
