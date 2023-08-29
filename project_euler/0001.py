@@ -5,7 +5,7 @@ from numba import njit
 import numpy as np
 import time
 
-numbers = [x for x in range(1, 100000000) if x % 3 == 0 or x % 5 == 0]
+numbers = [x for x in range(1, 1000000000) if x % 3 == 0 or x % 5 == 0]
 np_numbers = np.array(numbers)
 
 def solve_normally():
@@ -14,7 +14,7 @@ def solve_normally():
 def solve_with_numpy():
     return np.sum(np_numbers)
 
-@njit(parallel=True)
+@njit(parallel=True, fastmath=True)
 def solve_with_numba():
     return np.sum(np_numbers)
 
@@ -38,7 +38,7 @@ if __name__  == '__main__':
     fix, ax = plt.subplots()
     bar_colors = ['tab:red', 'tab:blue', 'tab:orange']
 
-    ax.bar(functions, times, label=["Solve normally", "Solve with Numpy", "Solve with Numba"], color=bar_colors)
+    ax.bar(functions, times, label=["Python", "Numpy", "Numpy & Numba"], color=bar_colors)
     ax.legend(title="Function Times")
     plt.xlabel("Functions")
     plt.ylabel("Time in seconds")
