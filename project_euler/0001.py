@@ -36,7 +36,10 @@ if __name__  == '__main__':
         times.append(abs(start - end))
 
     fix, ax = plt.subplots()
+    bar_colors = ['tab:red', 'tab:blue', 'tab:orange']
 
-    ax.bar(functions, times, label=["Solve normally", "Solve with Numpy", "Solve with Numba"])
+    ax.bar(functions, times, label=["Solve normally", "Solve with Numpy", "Solve with Numba"], color=bar_colors)
     ax.legend(title="Function Times")
+    plt.xlabel("Functions")
+    plt.ylabel("Time in seconds")
     plt.savefig('0001.py.png', bbox_inches='tight')
