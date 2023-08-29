@@ -14,7 +14,7 @@ def solve_normally():
 def solve_with_numpy():
     return np.sum(np_numbers)
 
-@njit
+@njit(parallel=True)
 def solve_with_numba():
     return np.sum(np_numbers)
 
