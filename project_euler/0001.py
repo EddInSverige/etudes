@@ -30,10 +30,10 @@ if __name__  == '__main__':
         print(function())
         end = time.perf_counter()
 
-        print(f'{function.__name__}: = {start - end}')
+        print(f'{function.__name__}: = {end - start}')
 
         functions.append(function.__name__)
-        times.append(abs(start - end))
+        times.append(end - start)
 
     fix, ax = plt.subplots()
     bar_colors = ['tab:red', 'tab:blue', 'tab:orange']
